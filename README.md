@@ -1,39 +1,100 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Dart Combine
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+// Dartで実装されたシンプルなSwift Combine Frameworkのコピー実装です。
+A simple copy implementation of Swift Combine Framework implemented in Dart.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+// dartの`Stream<T>`と異なり、値の変更は同期的に行われます。このためBlocを作成する際に画面のちらつきを抑えることができます。
+- Unlike Dart's `Stream<T>`, value changes are made synchronously. This allows you to create Blocs without flickering the screen.
 
-## Getting started
+## Example
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### map
 
 ```dart
-const like = 'sample';
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final subject = CurrentValueSubject<int, Never>(1);
+
+  final cancellable = subject
+    .map((e) => e * 2)
+    .sink({ value in
+      print(value);
+    }); // 2
+
+  subject.send(10); // 20
+}
 ```
 
-## Additional information
+### filter (unimplemented)
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final subject = CurrentValueSubject<int, Never>(1);
+
+  final cancellable = subject
+    .filter((e) => e % 2 == 0)
+    .sink({ value in
+      print(value);
+    }); // 2
+
+  subject.send(10); // 10
+  subject.send(11); // 10
+}
+```
+
+### Just
+
+```dart
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final cancellable = Just(1)
+    .sink({ value in
+      print(value);
+    }); // 1
+}
+```
+
+### combineLatest (for Iterable)
+
+```dart 
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final subject1 = CurrentValueSubject<int, Never>(1);
+  final subject2 = CurrentValueSubject<int, Never>(2);
+
+  final cancellable = [subject1, subject2].combineLatest()
+    .sink({ value in
+      print(value)
+    }); // [1, 2]
+
+  subject1.send(10); // [10, 2]
+  subject2.send(20); // [10, 20]
+}
+```
+
+### CombineLatest2/3
+
+```dart
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final subject1 = CurrentValueSubject<int, Never>(1);
+  final subject2 = CurrentValueSubject<int, Never>(2);
+
+  final cancellable = subject1.combineLatest2(subject2)
+    .map((e) => e.$0 + e.$1)
+    .sink({ value in
+      print(value);
+    }); // 3
+
+  subject1.send(10); // 12
+  subject2.send(20); // 30
+}
+```

@@ -1,6 +1,7 @@
 name: dart_combine
 description: "Dart implementation of the Swift Combine framework"
 version: 0.0.1
+publish_to: "https://github.com/ObuchiYuki/dart_combine"
 
 environment:
   sdk: ^3.5.1
