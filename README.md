@@ -1,12 +1,10 @@
 # Dart Combine
 
-// Dartで実装されたシンプルなSwift Combine Frameworkのコピー実装です。
 A simple copy implementation of Swift Combine Framework implemented in Dart.
 
 ## Features
 
-// dartの`Stream<T>`と異なり、値の変更は同期的に行われます。このためBlocを作成する際に画面のちらつきを抑えることができます。
-- Unlike Dart's `Stream<T>`, value changes are made synchronously. This allows you to create Blocs without flickering the screen.
+Unlike Dart's `Stream<T>`, value changes are made synchronously. This allows you to create Blocs without flickering the screen.
 
 ## Example
 
