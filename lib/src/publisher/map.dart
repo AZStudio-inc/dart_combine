@@ -3,18 +3,18 @@ import 'package:dart_combine/dart_combine.dart';
 
 extension PublisherMapExtension<Input, Failure extends Error, Upstream extends Publisher<Input, Failure>> on Publisher<Input, Failure> {
   Publisher<Output, Failure> map<Output>(Output Function(Input) transform) {
-    return Map(
+    return MapOperator(
       upstream: this,
       transform: transform,
     );
   }
 }
 
-final class Map<Input, Output, Failure extends Error, Upstream extends Publisher<Input, Failure>> implements Publisher<Output, Failure> {
+final class MapOperator<Input, Output, Failure extends Error, Upstream extends Publisher<Input, Failure>> implements Publisher<Output, Failure> {
   final Output Function(Input) _transform;
   final Upstream _upstream;
 
-  const Map({
+  const MapOperator({
     required Upstream upstream,
     required Output Function(Input) transform,
   }) : _transform = transform,
