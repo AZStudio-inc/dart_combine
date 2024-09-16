@@ -1,6 +1,6 @@
 import 'package:dart_combine/dart_combine.dart';
 
-final class PassthroughSubject<Output, Failure extends Error> extends Publisher<Output, Failure> {
+final class PassthroughSubject<Output, Failure extends Error> extends Subject<Output, Failure> {
   final List<_PassthroughSubjectSubscription<Output, Failure>> _subscriptions = [];
 
   void send(Output value) {

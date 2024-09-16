@@ -1,6 +1,6 @@
 import 'package:dart_combine/dart_combine.dart';
 
-class CurrentValueSubject<Output, Failure extends Error> extends Publisher<Output, Failure> {
+class CurrentValueSubject<Output, Failure extends Error> extends Subject<Output, Failure> {
   final List<_CurrentValueSubjectSubscription<Output, Failure>> _subscriptions = [];
 
   Output _currentValue;

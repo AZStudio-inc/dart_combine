@@ -58,6 +58,26 @@ void main() {
 }
 ```
 
+### CombineLatest2/3/4
+
+```dart
+import 'package:dart_combine/dart_combine.dart';
+
+void main() {
+  final subject1 = CurrentValueSubject<int, Never>(1);
+  final subject2 = CurrentValueSubject<int, Never>(2);
+
+  final cancellable = subject1
+    .combineLatest2(subject2, (a, b) => a + b)
+    .sink({ value in
+      print(value);
+    }); // 3
+
+  subject1.send(10); // 12
+  subject2.send(20); // 30
+}
+```
+
 ### combineLatest (for Iterable)
 
 ```dart 
@@ -74,25 +94,5 @@ void main() {
 
   subject1.send(10); // [10, 2]
   subject2.send(20); // [10, 20]
-}
-```
-
-### CombineLatest2/3
-
-```dart
-import 'package:dart_combine/dart_combine.dart';
-
-void main() {
-  final subject1 = CurrentValueSubject<int, Never>(1);
-  final subject2 = CurrentValueSubject<int, Never>(2);
-
-  final cancellable = subject1.combineLatest2(subject2)
-    .map((e) => e.$0 + e.$1)
-    .sink({ value in
-      print(value);
-    }); // 3
-
-  subject1.send(10); // 12
-  subject2.send(20); // 30
 }
 ```

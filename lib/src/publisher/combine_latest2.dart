@@ -1,33 +1,41 @@
 import 'package:dart_combine/dart_combine.dart';
 
 extension PubilsherCombineLatest2Extension<Input1, Failure extends Error> on Publisher<Input1, Failure> {
-  Publisher<(Input1, Input2), Failure> combineLatest2<Input2>(
+  Publisher<Output, Failure> combineLatest2<Input2, Output>(
     Publisher<Input2, Failure> publisher,
+    Output Function(Input1, Input2) transform,
   ) {
     return CombineLatest2(
       publisher1: this,
       publisher2: publisher,
+      transform: transform,
     );
   }
 }
 
 final class CombineLatest2<
+  Output,
   Input1,
   Input2,
   Failure extends Error
-> extends Publisher<(Input1, Input2), Failure> {
+> extends Publisher<Output, Failure> {
+  
   final Publisher<Input1, Failure> _publisher1;
   final Publisher<Input2, Failure> _publisher2;
+
+  final Output Function(Input1, Input2) _transform;
 
   CombineLatest2({
     required Publisher<Input1, Failure> publisher1,
     required Publisher<Input2, Failure> publisher2,
+    required Output Function(Input1, Input2) transform,
   })   : _publisher1 = publisher1,
-        _publisher2 = publisher2;
+        _publisher2 = publisher2,
+        _transform = transform;
 
   @override
-  void receive(Subscriber<(Input1, Input2), Failure> subscriber) {
-    final inner = _CombineLatest2Inner(downstream: subscriber);
+  void receive(Subscriber<Output, Failure> subscriber) {
+    final inner = _CombineLatest2Inner(downstream: subscriber, transform: _transform);
 
     (int, dynamic) map1(Input1 e) { return (0, e); }
     (int, dynamic) map2(Input2 e) { return (1, e); }
@@ -38,6 +46,7 @@ final class CombineLatest2<
 }
 
 final class _CombineLatest2Inner<
+  Output,
   Input1,
   Input2,
   Failure extends Error
@@ -51,11 +60,15 @@ final class _CombineLatest2Inner<
 
   int _completedCount = 0;
 
-  final Subscriber<(Input1, Input2), Failure> _downstream;
+  final Subscriber<Output, Failure> _downstream;
+
+  final Output Function(Input1, Input2) _transform;
 
   _CombineLatest2Inner({
-    required Subscriber<(Input1, Input2), Failure> downstream,
-  }) : _downstream = downstream;
+    required Subscriber<Output, Failure> downstream,
+    required Output Function(Input1, Input2) transform,
+  }) : _downstream = downstream,
+       _transform = transform;
   
   @override
   void receive((int, dynamic) input) {
@@ -68,7 +81,8 @@ final class _CombineLatest2Inner<
     }
 
     if (_hasReceived1 && _hasReceived2) {
-      _downstream.receive((_latestValue1, _latestValue2));
+      final output = _transform(_latestValue1 as Input1, _latestValue2 as Input2);
+      _downstream.receive(output);
     }
   }
 
