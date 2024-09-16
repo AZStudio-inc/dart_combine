@@ -11,7 +11,7 @@ extension PubilsherCombineLatest2Extension<Input1, Failure extends Error> on Pub
   }
 }
 
-class CombineLatest2<
+final class CombineLatest2<
   Input1,
   Input2,
   Failure extends Error
@@ -37,7 +37,7 @@ class CombineLatest2<
   }
 }
 
-class _CombineLatest2Inner<
+final class _CombineLatest2Inner<
   Input1,
   Input2,
   Failure extends Error

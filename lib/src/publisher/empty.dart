@@ -1,14 +1,10 @@
-
 import 'package:dart_combine/dart_combine.dart';
 
-final class Just<Output> extends Publisher<Output, Never> {
-  final Output _value;
-
-  Just(this._value);
+final class Empty<Output> extends Publisher<Output, Never> {
+  Empty();
 
   @override
   void receive(Subscriber<Output, Never> subscriber) {
-    subscriber.receive(_value);
     subscriber.receiveCompletion();
   }
 }

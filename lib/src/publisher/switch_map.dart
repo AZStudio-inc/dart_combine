@@ -6,7 +6,7 @@ extension SwitchToLatestExtension<Input, Failure extends Error> on Publisher<Inp
   }
 }
 
-class SwitchMap<
+final class SwitchMap<
   Output,
   Input,
   Failure extends Error, 
@@ -29,7 +29,7 @@ class SwitchMap<
   }
 }
 
-class _SwitchMapInner<
+final class _SwitchMapInner<
   Output,
   Input,
   Failure extends Error, 

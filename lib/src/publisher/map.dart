@@ -10,7 +10,7 @@ extension PublisherMapExtension<Input, Failure extends Error, Upstream extends P
   }
 }
 
-class Map<Input, Output, Failure extends Error, Upstream extends Publisher<Input, Failure>> implements Publisher<Output, Failure> {
+final class Map<Input, Output, Failure extends Error, Upstream extends Publisher<Input, Failure>> implements Publisher<Output, Failure> {
   final Output Function(Input) _transform;
   final Upstream _upstream;
 
@@ -27,7 +27,7 @@ class Map<Input, Output, Failure extends Error, Upstream extends Publisher<Input
   }
 }
 
-class _MapInner<Input, Output, Failure extends Error> implements Subscriber<Input, Failure> {
+final class _MapInner<Input, Output, Failure extends Error> implements Subscriber<Input, Failure> {
   final Subscriber<Output, Failure> _downstream;
   final Output Function(Input) _transform;
 

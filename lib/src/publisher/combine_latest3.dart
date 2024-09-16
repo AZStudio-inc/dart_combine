@@ -13,7 +13,7 @@ extension PubilsherCombineLatest3Extension<Input1, Failure extends Error> on Pub
   }
 }
 
-class CombineLatest3<
+final class CombineLatest3<
   Input1,
   Input2,
   Input3,
@@ -45,7 +45,7 @@ class CombineLatest3<
   }
 }
 
-class _CombineLatest3Inner<
+final class _CombineLatest3Inner<
   Input1,
   Input2,
   Input3,

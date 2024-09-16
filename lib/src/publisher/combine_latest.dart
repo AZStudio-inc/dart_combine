@@ -12,7 +12,7 @@ extension PubilsherCombineLatestCollectionExtension<Element, Failure extends Err
   }
 }
 
-class CombineLatestCollection<Element, Failure extends Error> extends Publisher<List<Element>, Failure> {
+final class CombineLatestCollection<Element, Failure extends Error> extends Publisher<List<Element>, Failure> {
   final Iterable<Publisher<Element, Failure>> _publishers;
 
   CombineLatestCollection({
@@ -30,7 +30,7 @@ class CombineLatestCollection<Element, Failure extends Error> extends Publisher<
   }
 }
 
-class _CombineLatestCollectionInner<Element, Failure extends Error> implements Subscriber<(int, Element), Failure> {
+final class _CombineLatestCollectionInner<Element, Failure extends Error> implements Subscriber<(int, Element), Failure> {
 
   final List<Element?> _prebuildList;
 

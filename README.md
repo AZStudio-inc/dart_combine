@@ -26,7 +26,7 @@ void main() {
 }
 ```
 
-### filter (unimplemented)
+### filter
 
 ```dart
 import 'package:dart_combine/dart_combine.dart';
