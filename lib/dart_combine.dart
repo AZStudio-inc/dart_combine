@@ -4,6 +4,7 @@ export "src/publisher.dart";
 export "src/subscriber.dart";
 export "src/subscription.dart";
 export "src/subject.dart";
+export "src/cancellables.dart";
 
 export "src/publisher/empty.dart";
 export "src/publisher/catch.dart";
