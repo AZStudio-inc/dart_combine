@@ -23,3 +23,5 @@ export 'src/subscriber/sink.dart';
 export "src/subject/current_value_subject.dart";
 export "src/subject/passthrough_subject.dart";
 export "src/subject/published.dart";
+
+export "src/extension/publisher_take.dart";
