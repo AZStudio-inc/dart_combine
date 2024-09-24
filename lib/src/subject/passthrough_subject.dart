@@ -62,3 +62,9 @@ class _PassthroughSubjectSubscription<Output, Failure extends Error> implements 
     _subject.target?._disassociate(this);
   }
 }
+
+extension PassthroughSubjectVoid<Failure extends Error> on PassthroughSubject<void, Failure> {
+  void sendVoid() {
+    this.send(null);
+  }
+}
