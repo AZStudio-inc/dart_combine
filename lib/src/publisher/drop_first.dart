@@ -1,10 +1,10 @@
 import 'package:dart_combine/dart_combine.dart';
 
 extension PublisherDropFirstExtension<Output, Failure extends Error, Upstream extends Publisher<Output, Failure>> on Publisher<Output, Failure> {
-  Publisher<Output, Failure> dropFirst(int count) {
+  Publisher<Output, Failure> dropFirst({int n = 1}) {
     return DropFirst(
       upstream: this,
-      count: count,
+      count: n,
     );
   }
 }
