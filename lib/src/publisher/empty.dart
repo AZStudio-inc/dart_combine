@@ -1,6 +1,6 @@
 import 'package:dart_combine/dart_combine.dart';
 
-final class Empty<Output> extends Publisher<Output, Never> {
+final class Empty<Output> implements Publisher<Output, Never> {
   Empty();
 
   @override

@@ -1,7 +1,7 @@
 
 import 'package:dart_combine/dart_combine.dart';
 
-final class Just<Output> extends Publisher<Output, Never> {
+final class Just<Output> implements Publisher<Output, Never> {
   final Output _value;
 
   Just(this._value);

@@ -9,7 +9,7 @@ extension PublisherFilterExtension<Output, Failure extends Error, Upstream exten
   }
 }
 
-final class Filter<Output, Failure extends Error, Upstream extends Publisher<Output, Failure>> extends Publisher<Output, Failure> {
+final class Filter<Output, Failure extends Error, Upstream extends Publisher<Output, Failure>> implements Publisher<Output, Failure> {
   final bool Function(Output) _predicate;
   final Upstream _upstream;
 
@@ -19,7 +19,6 @@ final class Filter<Output, Failure extends Error, Upstream extends Publisher<Out
   }) : _predicate = predicate,
         _upstream = upstream;
 
-  @override
   void receive(Subscriber<Output, Failure> subscriber) {
     final inner = _FilterInner<Output, Failure>(
       downstream: subscriber,
@@ -29,7 +28,7 @@ final class Filter<Output, Failure extends Error, Upstream extends Publisher<Out
   }
 }
 
-final class _FilterInner<Output, Failure extends Error> extends Subscriber<Output, Failure> {
+final class _FilterInner<Output, Failure extends Error> implements Subscriber<Output, Failure> {
   final Subscriber<Output, Failure> _downstream;
   final bool Function(Output) _predicate;
 

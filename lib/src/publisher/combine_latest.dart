@@ -12,7 +12,7 @@ extension PubilsherCombineLatestCollectionExtension<Element, Failure extends Err
   }
 }
 
-final class CombineLatestCollection<Element, Failure extends Error> extends Publisher<List<Element>, Failure> {
+final class CombineLatestCollection<Element, Failure extends Error> implements Publisher<List<Element>, Failure> {
   final Iterable<Publisher<Element, Failure>> _publishers;
 
   CombineLatestCollection({

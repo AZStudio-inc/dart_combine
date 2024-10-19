@@ -9,7 +9,7 @@ extension PublisherCatchExtension<Output, Failure extends Error, Upstream extend
   }
 }
 
-final class Catch<Output, Failure extends Error, Upstream extends Publisher<Output, Failure>> extends Publisher<Output, Failure> {
+final class Catch<Output, Failure extends Error, Upstream extends Publisher<Output, Failure>> implements Publisher<Output, Failure> {
   final Upstream _upstream;
   final void Function(Failure) _onReceiveError;
 
@@ -29,7 +29,7 @@ final class Catch<Output, Failure extends Error, Upstream extends Publisher<Outp
   }
 }
 
-final class _CatchInner<Output, Failure extends Error> extends Subscriber<Output, Failure> {
+final class _CatchInner<Output, Failure extends Error> implements Subscriber<Output, Failure> {
   final Subscriber<Output, Failure> _downstream;
   final void Function(Failure) _onReceiveError;
 

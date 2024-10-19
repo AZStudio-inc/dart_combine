@@ -18,7 +18,7 @@ final class CombineLatest2<
   Input1,
   Input2,
   Failure extends Error
-> extends Publisher<Output, Failure> {
+> implements Publisher<Output, Failure> {
   
   final Publisher<Input1, Failure> _publisher1;
   final Publisher<Input2, Failure> _publisher2;

@@ -17,6 +17,7 @@ export 'src/publisher/combine_latest4.dart';
 export 'src/publisher/just.dart';
 export 'src/publisher/map.dart';
 export 'src/publisher/switch_map.dart';
+export 'src/publisher/drop_first.dart';
 
 export 'src/subscriber/sink.dart';
 

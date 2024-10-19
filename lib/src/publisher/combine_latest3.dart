@@ -15,13 +15,13 @@ extension PubilsherCombineLatest3Extension<Input1, Failure extends Error> on Pub
   }
 }
 
-class CombineLatest3<
+final class CombineLatest3<
   Output,
   Input1,
   Input2,
   Input3,
   Failure extends Error
-> extends Publisher<Output, Failure> {
+> implements Publisher<Output, Failure> {
   
   final Publisher<Input1, Failure> _publisher1;
   final Publisher<Input2, Failure> _publisher2;
@@ -53,7 +53,7 @@ class CombineLatest3<
   }
 }
 
-class _CombineLatest3Inner<
+final class _CombineLatest3Inner<
   Output,
   Input1,
   Input2,
