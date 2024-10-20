@@ -1,6 +1,6 @@
 import 'package:dart_combine/src/cancellables.dart';
 
-abstract class Subscription {
+abstract interface class Subscription {
   void cancel();
 }
 

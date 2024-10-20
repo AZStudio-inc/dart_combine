@@ -1,6 +1,6 @@
 import 'package:dart_combine/dart_combine.dart';
 
-class CurrentValueSubject<Output, Failure extends Error> extends Subject<Output, Failure> {
+class CurrentValueSubject<Output, Failure extends Error> implements Subject<Output, Failure> {
   final List<_CurrentValueSubjectSubscription<Output, Failure>> _subscriptions = [];
 
   Output _currentValue;
@@ -11,6 +11,7 @@ class CurrentValueSubject<Output, Failure extends Error> extends Subject<Output,
 
   CurrentValueSubject(Output initialValue) : _currentValue = initialValue;
 
+  @override
   void send(Output value) {
     this._currentValue = value;
     for (final subscription in _subscriptions) {
@@ -18,6 +19,7 @@ class CurrentValueSubject<Output, Failure extends Error> extends Subject<Output,
     }
   }
 
+  @override
   void sendError(Failure failure) {
     for (final subscription in _subscriptions) {
       subscription.receiveError(failure);
@@ -26,6 +28,7 @@ class CurrentValueSubject<Output, Failure extends Error> extends Subject<Output,
     _subscriptions.clear();
   }
 
+  @override
   void sendCompletion() {
     for (final subscription in _subscriptions) {
       subscription.receiveCompletion();

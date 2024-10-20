@@ -1,14 +1,16 @@
 import 'package:dart_combine/dart_combine.dart';
 
-final class PassthroughSubject<Output, Failure extends Error> extends Subject<Output, Failure> {
+final class PassthroughSubject<Output, Failure extends Error> implements Subject<Output, Failure> {
   final List<_PassthroughSubjectSubscription<Output, Failure>> _subscriptions = [];
 
+  @override
   void send(Output value) {
     for (final subscription in _subscriptions) {
       subscription.receive(value);
     }
   }
 
+  @override
   void sendError(Failure failure) {
     for (final subscription in _subscriptions) {
       subscription.receiveError(failure);
@@ -17,6 +19,7 @@ final class PassthroughSubject<Output, Failure extends Error> extends Subject<Ou
     _subscriptions.clear();
   }
 
+  @override
   void sendCompletion() {
     for (final subscription in _subscriptions) {
       subscription.receiveCompletion();

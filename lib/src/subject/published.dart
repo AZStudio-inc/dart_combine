@@ -1,6 +1,6 @@
 import 'package:dart_combine/dart_combine.dart';
 
-class Published<Output> extends Subject<Output, Never> {
+final class Published<Output> implements Subject<Output, Never> {
   final List<_PublishedSubscription<Output>> _subscriptions = [];
 
   Output _currentValue;
@@ -9,6 +9,7 @@ class Published<Output> extends Subject<Output, Never> {
   
   set value(Output value) => send(value);
 
+  @override
   void send(Output value) {
     this._currentValue = value;
     for (final subscription in _subscriptions) {
@@ -16,12 +17,14 @@ class Published<Output> extends Subject<Output, Never> {
     }
   }
 
+  @override
   void sendError(Never failure) {
-    throw UnimplementedError();
+    throw UnimplementedError("Published does not support errors");
   }
 
+  @override
   void sendCompletion() {
-    throw UnimplementedError();
+    throw UnimplementedError("Published does not support completion");
   }
 
   Published(Output initialValue) : _currentValue = initialValue;
@@ -39,8 +42,7 @@ class Published<Output> extends Subject<Output, Never> {
   }
 }
 
-
-class _PublishedSubscription<Output> implements Subscription {
+final class _PublishedSubscription<Output> implements Subscription {
   final WeakReference<Published<Output>> _subject;
   final Subscriber<Output, Never> _subscriber;
 

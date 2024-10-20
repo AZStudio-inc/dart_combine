@@ -1,7 +1,6 @@
 import "subscription.dart";
 
-
-abstract class Subscriber<Input, Failure extends Error> {
+abstract interface class Subscriber<Input, Failure extends Error> {
   void receive(Input input);
 
   void receiveSubscription(Subscription subscription);
