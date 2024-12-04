@@ -13,6 +13,18 @@ extension PubilsherCombineLatest3Extension<Input1, Failure extends Error> on Pub
       transform: transform,
     );
   }
+
+  Publisher<(Input1, Input2, Input3), Failure> combineLatestToRecord3<Input2, Input3>(
+    Publisher<Input2, Failure> publisher2,
+    Publisher<Input3, Failure> publisher3,
+  ) {
+    return CombineLatest3(
+      publisher1: this,
+      publisher2: publisher2,
+      publisher3: publisher3,
+      transform: (Input1 a, Input2 b, Input3 c) => (a, b, c),
+    );
+  }
 }
 
 final class CombineLatest3<
